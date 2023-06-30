@@ -6,7 +6,7 @@ const data = {
       category: 'smartPhone',
       image: '/images/iPhone14.jpg',
       price: 1000,
-      countInStock: 5,
+      countInStock: 0,
       brand: 'iPhone',
       rating: 4,
       numReviews: 100,
