@@ -1,6 +1,7 @@
 const data = {
   products: [
     {
+      _id: '1',
       name: 'iPhone14',
       slug: 'iPhone-14',
       category: 'smartPhone',
@@ -13,12 +14,13 @@ const data = {
       description: 'iPhone 14',
     },
     {
+      _id: '2',
       name: 'sumsung a50',
       slug: 'sumsung-a-50',
       category: 'smartPhone',
       image: '/images/sumsungA50.jpg',
       price: 900,
-      countInStock: 5,
+      countInStock: 3,
       brand: 'sumsung',
       rating: 3,
       numReviews: 150,
