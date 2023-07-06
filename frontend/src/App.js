@@ -3,12 +3,10 @@ import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-//import Badge from 'react-bootstrap/Badge';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useContext } from 'react';
 import { Store } from './Store';
-import CartScreen from './screens/CartScreen';
 import SignInScreen from './screens/signInScreen';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,7 +15,7 @@ import SignupScreen from './screens/SignupScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { cart, userInfo } = state;
+  const { userInfo } = state;
 
   const signoutHandler = () => {
     ctxDispatch({ type: 'USER_SIGNOUT' });
@@ -34,22 +32,23 @@ function App() {
               <LinkContainer to="/">
                 <Navbar.Brand>Bi3a w charya</Navbar.Brand>
               </LinkContainer>
+              <LinkContainer to="/">
+                <Navbar.Brand>Services</Navbar.Brand>
+              </LinkContainer>
+              <LinkContainer to="/">
+                <Navbar.Brand>Pricing</Navbar.Brand>
+              </LinkContainer>
+              <LinkContainer to="/">
+                <Navbar.Brand>Contact</Navbar.Brand>
+              </LinkContainer>
               <Nav className="me-auto">
-                {/*<Link to="/cart" className="nav-link">
-                  Cart{' '}
-                  {cart.cartItems.length > 0 && (
-                    <Badge pill bg="danger">
-                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-                    </Badge>
-                  )}
-                </Link>*/}
                 {userInfo ? (
                   <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
                     <LinkContainer to="/profile">
                       <NavDropdown.Item>User Profile</NavDropdown.Item>
                     </LinkContainer>
                     <LinkContainer to="/orderhistory">
-                      <NavDropdown.Item>Order History</NavDropdown.Item>
+                      <NavDropdown.Item>Dashboard</NavDropdown.Item>
                     </LinkContainer>
                     <NavDropdown.Divider />
                     <Link
@@ -74,7 +73,6 @@ function App() {
             <Routes>
               <Route path="/product/:slug" element={<ProductScreen />} />
               <Route path="/" element={<HomeScreen />} />
-              <Route path="/cart" element={<CartScreen />} />
               <Route path="/signin" element={<SignInScreen />} />
               <Route path="/signup" element={<SignupScreen />} />
             </Routes>
