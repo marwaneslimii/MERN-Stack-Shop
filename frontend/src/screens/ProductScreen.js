@@ -69,9 +69,7 @@ function ProductScreen() {
             <ListGroup.Item>
               Description: <p>{product.description}</p>
             </ListGroup.Item>
-            <ListGroup.Item>
-              <Button type="Submit">Send</Button>
-            </ListGroup.Item>
+            <ListGroup.Item>Contact seller: Phone number:</ListGroup.Item>
           </ListGroup>
         </Col>
         <Col md={3}></Col>

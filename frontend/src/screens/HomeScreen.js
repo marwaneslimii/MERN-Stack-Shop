@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 import axios from 'axios';
 import logger from 'use-reducer-logger';
 import Row from 'react-bootstrap/Row';
@@ -7,7 +7,8 @@ import Product from '../components/Product';
 import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 //import data from '../data';
 
 const reducer = (state, action) => {
@@ -43,12 +44,46 @@ function HomeScreen() {
     };
     fetchData();
   }, []);
+  products.map((product) => (
+    <Col key={product.slug}>
+      <Product product={product}></Product>
+    </Col>
+  ));
+
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 3000, min: 1024 },
+      items: 1,
+    },
+    desktop: {
+      breakpoint: { max: 1024, min: 800 },
+      items: 1,
+    },
+    tablet: {
+      breakpoint: { max: 800, min: 464 },
+      items: 1,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
+
   return (
     <div>
       <Helmet>
-        <title>Bi3a w charya</title>
+        <title>Zone</title>
       </Helmet>
-      <h1>Products List</h1>
+      <div className="featured-products">
+        <Carousel responsive={responsive}>
+          {products.map((product) => (
+            <Col key={product.slug}>
+              <Product product={product}></Product>
+            </Col>
+          ))}
+        </Carousel>
+      </div>
       <div className="products">
         {loading ? (
           <LoadingBox />

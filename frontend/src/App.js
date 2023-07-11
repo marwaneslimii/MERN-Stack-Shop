@@ -12,6 +12,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import SignupScreen from './screens/SignupScreen';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -27,10 +29,17 @@ function App() {
       <div className="d-flex flex-column site-container">
         <ToastContainer position="bottom-center" limit={1} />
         <header>
-          <Navbar bg="dark" variant="dark">
+          <Navbar bg="light" data-bs-theme="secondary">
             <Container>
+              <Navbar.Brand>
+                <img src="../images/iPhone14.jpg" height="60" alt="" />
+                <span class="text-uppercase font-weight-bold">Zone</span>
+              </Navbar.Brand>
               <LinkContainer to="/">
-                <Navbar.Brand>Bi3a w charya</Navbar.Brand>
+                <Navbar.Brand>Home</Navbar.Brand>
+              </LinkContainer>
+              <LinkContainer to="/">
+                <Navbar.Brand>About Us</Navbar.Brand>
               </LinkContainer>
               <LinkContainer to="/">
                 <Navbar.Brand>Services</Navbar.Brand>
@@ -39,9 +48,34 @@ function App() {
                 <Navbar.Brand>Pricing</Navbar.Brand>
               </LinkContainer>
               <LinkContainer to="/">
-                <Navbar.Brand>Contact</Navbar.Brand>
+                <Navbar.Brand>Contact Us</Navbar.Brand>
               </LinkContainer>
+            </Container>
+          </Navbar>
+          <br />
+          <Navbar bg="primary" data-bs-theme="dark">
+            <Container>
               <Nav className="me-auto">
+                <NavDropdown title="Categories" id="basic-nav-dropdown">
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>SmartPhone</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/orderhistory">
+                    <NavDropdown.Item>PC</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              </Nav>
+              <Form className="me-auto d-flex">
+                <Form.Control
+                  type="search"
+                  placeholder="Search"
+                  className="me-2 bg-light"
+                  aria-label="Search"
+                />
+                <Button variant="light">Search</Button>
+              </Form>
+
+              <Nav className="ml-auto">
                 {userInfo ? (
                   <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
                     <LinkContainer to="/profile">
