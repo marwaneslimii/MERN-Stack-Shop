@@ -5,15 +5,19 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Store } from './Store';
 import SignInScreen from './screens/signInScreen';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import SignupScreen from './screens/SignupScreen';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import ProfileScreen from './screens/ProfileScreen';
+import { getError } from './utils';
+import axios from 'axios';
+import SearchBox from './components/SearchBox';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -22,11 +26,32 @@ function App() {
   const signoutHandler = () => {
     ctxDispatch({ type: 'USER_SIGNOUT' });
     localStorage.removeItem('userInfo');
+    window.location.href = '/signin';
   };
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const { data } = await axios.get(`/api/products/categories`);
+        setCategories(data);
+      } catch (err) {
+        toast.error(getError(err));
+      }
+    };
+    fetchCategories();
+  }, []);
   return (
     <BrowserRouter>
-      <div className="d-flex flex-column site-container">
+      <div
+        className={
+          sidebarIsOpen
+            ? 'd-flex flex-column site-container active-cont'
+            : 'd-flex flex-column site-container'
+        }
+      >
+        {' '}
         <ToastContainer position="bottom-center" limit={1} />
         <header>
           <Navbar bg="light" data-bs-theme="secondary">
@@ -65,7 +90,7 @@ function App() {
                   </LinkContainer>
                 </NavDropdown>
               </Nav>
-              <Form className="me-auto d-flex">
+              {/*<Form className="me-auto d-flex">
                 <Form.Control
                   type="search"
                   placeholder="Search"
@@ -73,7 +98,8 @@ function App() {
                   aria-label="Search"
                 />
                 <Button variant="light">Search</Button>
-              </Form>
+      </Form>*/}
+              <SearchBox />
 
               <Nav className="ml-auto">
                 {userInfo ? (
@@ -109,6 +135,7 @@ function App() {
               <Route path="/" element={<HomeScreen />} />
               <Route path="/signin" element={<SignInScreen />} />
               <Route path="/signup" element={<SignupScreen />} />
+              <Route path="/profile" element={<ProfileScreen />} />
             </Routes>
           </Container>
         </main>
