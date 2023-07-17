@@ -79,3 +79,12 @@ main {
 .active-nav {
   left: 0;
 }
+
+.react-multi-carousel-list li > div {
+  max-width: 300px;
+  margin: auto;
+}
+
+.text-bold {
+  font-weight: bold;
+}
