@@ -88,3 +88,9 @@ main {
 .text-bold {
   font-weight: bold;
 }
+
+.footer-part {
+  text-align: center;
+  color: aliceblue;
+  background-color: #404040;
+}
