@@ -6,10 +6,9 @@ import { uuid } from 'uuidv4';
 import Product from '../models/productModel.js';
 
 const uploadRouter = express.Router();
-var uniqueId = uuid();
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '/images');
+    cb(null, '../images');
   },
   filename: function (req, file, cb) {
     cb(
@@ -19,11 +18,22 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
-uploadRouter.post('/', isAuth, isAdmin, upload.single('file'), (req, res) => {
-  Product.create({ image: req.file.filename })
-    .then((result) => res.json(result))
-    .catch((err) => console.log(err));
-});
+uploadRouter.post(
+  '/',
+  isAuth,
+  isAdmin,
+  upload.single('file'),
+  async (req, res) => {
+    const image = req.file.filename;
+    const newProductData = {
+      image,
+    };
+    await Product.deleteOne({ image: { slug: 'iPhone-14' } });
+    await Product.insertOne(image)
+      .then(() => res.json('User Added'))
+      .catch((err) => res.status(400).json('Error: ' + err));
+  }
+);
 export default uploadRouter;
