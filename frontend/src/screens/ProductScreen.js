@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useContext, useEffect, useReducer } from 'react';
+import { useContext, useEffect, useReducer, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -10,6 +10,7 @@ import MessageBox from '../components/MessageBox';
 import { getError } from '../utils';
 import { Store } from '../Store';
 import Button from 'react-bootstrap/esm/Button';
+import Card from 'react-bootstrap/Card';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -59,13 +60,19 @@ function ProductScreen() {
           <img
             className="img-large"
             src={product.image}
-            alt={product.namee}
+            alt={product.name}
           ></img>
         </Col>
         <Col md={3}>
-          <ListGroup variant="flash">
-            <ListGroup.Item>{product.name}</ListGroup.Item>
+          <ListGroup variant="flush">
+            <ListGroup.Item>
+              <Helmet>
+                <title>{product.name}</title>
+              </Helmet>
+              <h1>{product.name}</h1>
+            </ListGroup.Item>
             <ListGroup.Item>Price:{product.price} dt</ListGroup.Item>
+
             <ListGroup.Item>
               Description: <p>{product.description}</p>
             </ListGroup.Item>
